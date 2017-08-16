@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="progress_bar_dimension">50dp</dimen>
+    <dimen name="error_message_text_size">20sp</dimen>
+
+    <dimen name="recipe_card_height">200dp</dimen>
+    <dimen name="ingredient_button_height">48dp</dimen>
+
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+
+    <dimen name="margin_padding_4">4dp</dimen>
+    <dimen name="margin_padding_8">8dp</dimen>
+    <dimen name="margin_padding_12">12dp</dimen>
+    <dimen name="margin_padding_16">16dp</dimen>
+    <dimen name="margin_padding_32">32dp</dimen>
+
+    <dimen name="rounded_corner_radius">10dp</dimen>
+    <dimen name="separated_lines">1dp</dimen>
+    <dimen name="width_two_panes">450dp</dimen>
+</resources>

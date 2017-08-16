@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_padding_12"
+    android:paddingBottom="@dimen/margin_padding_12"
+    android:paddingLeft="@dimen/margin_padding_16"
+    android:paddingRight="@dimen/margin_padding_16">
+
+    <ImageView
+        android:id="@+id/recipe_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recipe_card_height"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:src="@drawable/brownies" />
+
+    <TextView
+        android:id="@+id/recipe_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_padding_16"
+        android:textSize="@dimen/text_size_20"
+        android:text="@string/app_name"
+        android:textColor="@color/spun_pearl"
+        android:layout_gravity="bottom"/>
+
+</FrameLayout>

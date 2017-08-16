@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Baking Time</string>
+    <string name="recipe_steps">Recipe Steps</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="step_detail">Step Detail</string>
+    <string name="error_message">We are unable to start the application. Please try to restart it and check your internet connection.</string>
+
+    <string name="recipe_ingredients">Recipe Ingredients</string>
+</resources>
