@@ -9,22 +9,38 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.android.bakingtime.model.Recipe;
+import com.example.android.bakingtime.model.SelectedPosition;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by Anugrah on 8/16/17.
  */
 
-public class RecipeStepsActivity extends AppCompatActivity {
+public class RecipeStepsActivity extends AppCompatActivity  {
 
     private Recipe recipe;
 
     private Button ingredientsButton;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe_steps);
-        ingredientsButton = (Button) findViewById(R.id.recipe_ingredients_button);
 
         Bundle data = getIntent().getExtras();
         if ( data != null) {
@@ -40,84 +56,58 @@ public class RecipeStepsActivity extends AppCompatActivity {
         editor.putString("recipe_name", recipe.getName());
         editor.commit();
 
+        /**
+         * Call Steps Fragment
+         */
         RecipeStepsFragment recipeStepsFragment = new RecipeStepsFragment();
         getFragmentManager().beginTransaction().add(R.id.recipe_steps_container, recipeStepsFragment).commit();
         recipeStepsFragment.setRecipe(recipe);
 
+        /**
+         * Check wether screen device on tablet or phone
+         */
         if(getResources().getBoolean(R.bool.isTablet)){
             // Tablet is True
             if (savedInstanceState == null) {
+                /**
+                 * Call ingredient List Fragment
+                 */
                 IngredientListFragment ingredientListFragment = new IngredientListFragment();
                 getFragmentManager().beginTransaction().add(R.id.ingredients_container, ingredientListFragment).commit();
                 ingredientListFragment.setIngredients(recipe.getIngredients());
 
-//                StepDetailFragment stepDetailFragment = new StepDetailFragment();
-//                getFragmentManager().beginTransaction().add(R.id.detail_step_container, stepDetailFragment).commit();
-//                stepDetailFragment.setStep(recipe.);
+                /**
+                 * Call step detail fragment for the first time
+                 */
+                StepDetailFragment stepDetailFragment = new StepDetailFragment();
+                getFragmentManager().beginTransaction().replace(R.id.detail_step_container, stepDetailFragment).commit();
+                stepDetailFragment.setStep(recipe.getSteps().get(0));
             }
-        }
+        } else {
+            // Tablet is False
+            ingredientsButton = (Button) findViewById(R.id.recipe_ingredients_button);
+            ingredientsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!getResources().getBoolean(R.bool.isTablet)) {
+                        // Tablet is false
+                        Intent intentToStartIngredientActivity = new Intent(view.getContext(), IngredientListActivity.class);
+                        intentToStartIngredientActivity.putExtra("recipe", recipe);
 
-        ingredientsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!getResources().getBoolean(R.bool.isTablet)) {
-                    // Tablet is false
-                    Intent intentToStartIngredientActivity = new Intent(view.getContext(), IngredientListActivity.class);
-                    intentToStartIngredientActivity.putExtra("recipe", recipe);
-
-                    view.getContext().startActivity(intentToStartIngredientActivity);
+                        view.getContext().startActivity(intentToStartIngredientActivity);
+                    }
                 }
-            }
-        });
+            });
+        }
 
     }
 
-
-//    @Override
-//    protected void onCreate( Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_view_recipe_steps);
-//
-//        /**
-//         * getIntent from MainActivity
-//         */
-//        Bundle data = getIntent().getExtras();
-//        if ( data != null) {
-//            recipe = data.getParcelable("recipe");
-//            steps = recipe.getSteps();
-//
-//            setTitle(recipe.getName());
-//        } else {
-//            finish();
-//        }
-//
-//        /**
-//         * Ingredients Button
-//         */
-//        ingredientsButton = (Button) findViewById(R.id.recipe_ingredients_button);
-//        ingredientsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intentToStartIngredientActivity = new Intent(view.getContext(), IngredientListActivity.class);
-//                intentToStartIngredientActivity.putExtra("recipe", recipe);
-//
-//                view.getContext().startActivity(intentToStartIngredientActivity);
-//            }
-//        });
-//
-//        /**
-//         * Steps Recycler View
-//         */
-//        recyclerView = (RecyclerView) findViewById(R.id.steps_recycler_view);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//        recyclerView.setHasFixedSize(true);
-//
-//        stepAdapter = new StepAdapter(new ArrayList<Step>(), getApplicationContext());
-//        recyclerView.setAdapter(stepAdapter);
-//
-//        stepAdapter.setStepsData(steps);
-//
-//    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(SelectedPosition selectedPosition) {
+        /* Do something */
+        StepDetailFragment stepDetailFragment = new StepDetailFragment();
+        getFragmentManager().beginTransaction().replace(R.id.detail_step_container, stepDetailFragment).commit();
+        stepDetailFragment.setStep(recipe.getSteps().get(selectedPosition.getPosition()));
+    }
 
 }

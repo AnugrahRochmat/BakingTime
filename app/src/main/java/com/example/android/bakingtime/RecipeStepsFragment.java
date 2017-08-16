@@ -15,14 +15,21 @@ import com.example.android.bakingtime.model.Recipe;
  * Created by Anugrah on 8/16/17.
  */
 
-public class RecipeStepsFragment extends Fragment {
+public class RecipeStepsFragment extends Fragment implements StepAdapter.OnStepAdapterListener {
 
     private Recipe recipe;
 
     private RecyclerView recipeStepsRecyclerView;
     private StepAdapter stepAdapter;
 
+    private int stepsPosition;
+
     public RecipeStepsFragment(){
+    }
+
+    @Override
+    public void onViewSelected(int position) {
+        stepsPosition = position;
     }
 
     @Override
@@ -40,11 +47,12 @@ public class RecipeStepsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recipeStepsRecyclerView.setLayoutManager(layoutManager);
 
-        stepAdapter = new StepAdapter(recipe.getSteps(), getActivity());
+        stepAdapter = new StepAdapter(recipe.getSteps(), this);
         recipeStepsRecyclerView.setAdapter(stepAdapter);
     }
 
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
+
 }

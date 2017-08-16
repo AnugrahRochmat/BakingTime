@@ -12,10 +12,13 @@ import android.widget.TextView;
 
 import com.example.android.bakingtime.R;
 import com.example.android.bakingtime.StepDetailActivity;
+import com.example.android.bakingtime.model.SelectedPosition;
 import com.example.android.bakingtime.model.Step;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -29,7 +32,13 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     public List<Step> steps;
     private Context context;
 
-    public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private OnStepAdapterListener onStepAdapterListener;
+
+    public interface OnStepAdapterListener{
+        void onViewSelected(int position);
+    }
+
+    public class StepViewHolder extends RecyclerView.ViewHolder {
         public final ImageView stepImage;
         public final TextView shortDescription;
 
@@ -37,28 +46,17 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
             super(view);
             stepImage = view.findViewById(R.id.step_image);
             shortDescription = view.findViewById(R.id.step_short_description);
-            view.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            Step step = steps.get(getAdapterPosition());
-
-            Intent intentToStepDetailActivity = new Intent(view.getContext(), StepDetailActivity.class);
-            intentToStepDetailActivity.putExtra("step", step);
-
-            view.getContext().startActivity(intentToStepDetailActivity);
         }
     }
 
-    public StepAdapter(List<Step> steps, Context context) {
+    public StepAdapter(List<Step> steps, OnStepAdapterListener onStepAdapterListener) {
         this.steps = steps;
-        this.context = context;
+        this.onStepAdapterListener = onStepAdapterListener;
     }
 
     @Override
     public StepViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        Context context = viewGroup.getContext();
+        context = viewGroup.getContext();
         int layoutInflaterStep = R.layout.list_steps;
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -67,8 +65,8 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     }
 
     @Override
-    public void onBindViewHolder(StepViewHolder holder, int position) {
-        Step step = steps.get(position);
+    public void onBindViewHolder(StepViewHolder holder, final int position) {
+        final Step step = steps.get(position);
 
         Transformation transformation = new RoundedTransformationBuilder()
                 .borderColor(Color.BLACK)
@@ -82,7 +80,25 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         } else {
             Picasso.with(context).load(step.getThumbnailURL()).placeholder(R.drawable.placeholder).fit().transform(transformation).into(holder.stepImage);
         }
+
         holder.shortDescription.setText(step.getShortDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onStepAdapterListener.onViewSelected(position);
+                if (context.getResources().getBoolean(R.bool.isTablet)) {
+                    // tablet is true
+                    EventBus.getDefault().post(new SelectedPosition(position));
+                } else {
+                    // tablet is false
+                    Intent intentToStepDetailActivity = new Intent(context, StepDetailActivity.class);
+                    intentToStepDetailActivity.putExtra("step", step);
+
+                    context.startActivity(intentToStepDetailActivity);
+                }
+            }
+        });
     }
 
     @Override

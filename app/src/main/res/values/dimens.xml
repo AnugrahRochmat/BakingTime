@@ -5,6 +5,7 @@
 
     <dimen name="recipe_card_height">200dp</dimen>
     <dimen name="ingredient_button_height">48dp</dimen>
+    <dimen name="step_image_detail_height">360dp</dimen>
 
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_14">14sp</dimen>
@@ -16,8 +17,8 @@
     <dimen name="margin_padding_12">12dp</dimen>
     <dimen name="margin_padding_16">16dp</dimen>
     <dimen name="margin_padding_32">32dp</dimen>
+    <dimen name="margin_padding_64">64dp</dimen>
 
     <dimen name="rounded_corner_radius">10dp</dimen>
     <dimen name="separated_lines">1dp</dimen>
-    <dimen name="width_two_panes">450dp</dimen>
 </resources>

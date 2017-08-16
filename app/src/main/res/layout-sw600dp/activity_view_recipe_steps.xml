@@ -22,7 +22,9 @@
             <FrameLayout
                 android:id="@+id/recipe_steps_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/margin_padding_16"
+                android:paddingRight="@dimen/margin_padding_16"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

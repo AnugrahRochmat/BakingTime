@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recipes_recycler_view);
 
         /**
-         * Check wether screen on tablet or device
+         * Check wether screen device on tablet or phone
          */
         if(getResources().getBoolean(R.bool.isTablet)) {
             // tablet device
@@ -100,11 +100,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // TODO Ingredients list not button. Big card view consist of all ingredients
-    // TODO Create StepsDescriptionActivity
-    // TODO Implement Master-Detail flow layout with Fragments for different devices
-    // TODO Master (RecipeStepsActivity)
-    // TODO Detail (IngredientsListActivity, StepsDescriptionActivity)
-    // TODO Click Detail in Two Pane Mode
     // TODO implement SaveInstaceState
 }
