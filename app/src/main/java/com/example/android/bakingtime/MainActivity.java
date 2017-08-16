@@ -40,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recipes_recycler_view);
+
+        /**
+         * Check wether screen on tablet or device
+         */
         if(getResources().getBoolean(R.bool.isTablet)) {
             // tablet device
             GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -49,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
             LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
         }
-        recyclerView.setHasFixedSize(true);
 
+        recyclerView.setHasFixedSize(true);
         adapter = new RecipeAdapter(new ArrayList<Recipe>(), getApplicationContext());
         recyclerView.setAdapter(adapter);
 
