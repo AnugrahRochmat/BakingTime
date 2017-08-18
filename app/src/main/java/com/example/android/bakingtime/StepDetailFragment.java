@@ -1,9 +1,6 @@
 package com.example.android.bakingtime;
 
-import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +8,39 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.bakingtime.model.Step;
-import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 /**
  * Created by Anugrah on 8/16/17.
  */
 
-public class StepDetailFragment extends Fragment {
+public class StepDetailFragment extends android.support.v4.app.Fragment {
 
     private Step step;
     private ImageView stepThumbnailImage;
     private TextView stepDescription;
+
+    private String thumbImage;
+    private String description;
+
+    public static StepDetailFragment newInstance(String thumbImage, String description){
+        StepDetailFragment f = new StepDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("thumb_image", thumbImage);
+        bundle.putString("description", description);
+        f.setArguments(bundle);
+        return f;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null && getArguments().containsKey("thumb_image") && getArguments().containsKey("description")) {
+            Bundle bundle = getArguments();
+            thumbImage = bundle.getString("thumb_image");
+            description = bundle.getString("description");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,35 +48,10 @@ public class StepDetailFragment extends Fragment {
         stepThumbnailImage = rootView.findViewById(R.id.step_thumbnail_image);
         stepDescription = rootView.findViewById(R.id.step_description);
 
+        Picasso.with(getActivity()).load(R.drawable.placeholder).into(stepThumbnailImage);
+        stepDescription.setText(description);
+
         return rootView;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        Transformation transformation = new RoundedTransformationBuilder()
-                .borderColor(Color.BLACK)
-                .borderWidthDp(2)
-                .cornerRadiusDp(20)
-                .oval(false)
-                .build();
-
-        if (step.getThumbnailURL() == null || step.getThumbnailURL().isEmpty()) {
-            Picasso.with(getActivity()).load(R.drawable.placeholder).fit().transform(transformation).into(stepThumbnailImage);
-        } else {
-            Picasso.with(getActivity()).load(step.getThumbnailURL()).placeholder(R.drawable.placeholder).fit().transform(transformation).into(stepThumbnailImage);
-        }
-        // TODO Change thumbnailImage to media player
-        // TODO Add Navigation between steps using view pager
-
-        stepDescription.setText(step.getDescription());
-        stepDescription.setMovementMethod(new ScrollingMovementMethod());
-
-    }
-
-    public void setStep(Step step) {
-        this.step = step;
     }
 
 }

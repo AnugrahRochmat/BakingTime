@@ -20,6 +20,7 @@ import com.squareup.picasso.Transformation;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -93,7 +94,10 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
                 } else {
                     // tablet is false
                     Intent intentToStepDetailActivity = new Intent(context, StepDetailActivity.class);
-                    intentToStepDetailActivity.putExtra("step", step);
+
+                    ArrayList<Step> steps1 = new ArrayList<Step>();
+                    steps1.addAll(steps);
+                    intentToStepDetailActivity.putParcelableArrayListExtra("steps1", steps1);
 
                     context.startActivity(intentToStepDetailActivity);
                 }

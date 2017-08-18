@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.android.bakingtime.adapter.StepDetailPagerAdapter;
 import com.example.android.bakingtime.model.Recipe;
 import com.example.android.bakingtime.model.SelectedPosition;
 
@@ -24,6 +26,9 @@ public class RecipeStepsActivity extends AppCompatActivity  {
     private Recipe recipe;
 
     private Button ingredientsButton;
+
+    private ViewPager viewPager;
+    private StepDetailPagerAdapter stepDetailPagerAdapter;
 
     @Override
     public void onStart() {
@@ -77,11 +82,11 @@ public class RecipeStepsActivity extends AppCompatActivity  {
                 ingredientListFragment.setIngredients(recipe.getIngredients());
 
                 /**
-                 * Call step detail fragment for the first time
+                 * Call detail of steps fragment
                  */
-                StepDetailFragment stepDetailFragment = new StepDetailFragment();
-                getFragmentManager().beginTransaction().replace(R.id.detail_step_container, stepDetailFragment).commit();
-                stepDetailFragment.setStep(recipe.getSteps().get(0));
+                viewPager = (ViewPager)findViewById(R.id.view_pager);
+                stepDetailPagerAdapter = new StepDetailPagerAdapter(getSupportFragmentManager(), this, recipe.getSteps());
+                viewPager.setAdapter(stepDetailPagerAdapter);
             }
         } else {
             // Tablet is False
@@ -90,7 +95,6 @@ public class RecipeStepsActivity extends AppCompatActivity  {
                 @Override
                 public void onClick(View view) {
                     if (!getResources().getBoolean(R.bool.isTablet)) {
-                        // Tablet is false
                         Intent intentToStartIngredientActivity = new Intent(view.getContext(), IngredientListActivity.class);
                         intentToStartIngredientActivity.putExtra("recipe", recipe);
 
@@ -104,10 +108,7 @@ public class RecipeStepsActivity extends AppCompatActivity  {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(SelectedPosition selectedPosition) {
-        /* Do something */
-        StepDetailFragment stepDetailFragment = new StepDetailFragment();
-        getFragmentManager().beginTransaction().replace(R.id.detail_step_container, stepDetailFragment).commit();
-        stepDetailFragment.setStep(recipe.getSteps().get(selectedPosition.getPosition()));
+        viewPager.setCurrentItem(selectedPosition.getPosition());
     }
 
 }
