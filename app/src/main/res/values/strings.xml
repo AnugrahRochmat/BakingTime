@@ -6,4 +6,6 @@
     <string name="error_message">We are unable to start the application. Please try to restart it and check your internet connection.</string>
 
     <string name="recipe_ingredients">Recipe Ingredients</string>
+    <string name="prev_button">Prev</string>
+    <string name="next_button">Next</string>
 </resources>

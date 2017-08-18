@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.bakingtime.model.Recipe;
 import com.example.android.bakingtime.model.Step;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
@@ -22,7 +21,6 @@ import com.squareup.picasso.Transformation;
 
 public class StepDetailFragment extends Fragment {
 
-    private Recipe recipe;
     private Step step;
     private ImageView stepThumbnailImage;
     private TextView stepDescription;
@@ -63,4 +61,5 @@ public class StepDetailFragment extends Fragment {
     public void setStep(Step step) {
         this.step = step;
     }
+
 }
