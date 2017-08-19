@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/margin_padding_16"
@@ -10,12 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <ImageView
-            android:id="@+id/step_thumbnail_image"
+        <!--<ImageView-->
+            <!--android:id="@+id/step_thumbnail_image"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/recipe_card_height"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:layout_marginBottom="@dimen/margin_padding_16"/>-->
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+            android:id="@+id/step_detail_video"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recipe_card_height"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
             android:layout_marginBottom="@dimen/margin_padding_16"/>
 
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,4 +40,4 @@
                 android:scrollbars="vertical"/>
         </android.support.v7.widget.CardView>
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>

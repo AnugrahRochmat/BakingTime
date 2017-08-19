@@ -100,14 +100,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // TODO: Navigation between Steps
-    // TODO: Navigation Drawer between Recipes
-
-    // TODO: ExoPlayermedia player
     // TODO: Implement SaveInstaceState
     // TODO: Widget choose recipe for widget (widget show all the ingredients for the recipe that we choose)
-
-    // TODO: Espresso for testing
 
     // TODO: UI Binding library
 }

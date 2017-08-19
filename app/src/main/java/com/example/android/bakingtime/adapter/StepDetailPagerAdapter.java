@@ -28,9 +28,9 @@ public class StepDetailPagerAdapter extends FragmentPagerAdapter{
     @Override
     public Fragment getItem(int position) {
         Step step = steps.get(position);
-        String thumbImage = step.getThumbnailURL();
+        String videoURL = step.getVideoURL(); // Video Url
         String description = step.getDescription();
-        return StepDetailFragment.newInstance(thumbImage, description);
+        return StepDetailFragment.newInstance(videoURL, description);
     }
 
     @Override
