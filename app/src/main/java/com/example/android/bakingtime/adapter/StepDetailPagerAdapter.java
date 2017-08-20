@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.android.bakingtime.StepDetailFragment;
+import com.example.android.bakingtime.fragment.StepDetailFragment;
 import com.example.android.bakingtime.model.Step;
 
 import java.util.List;

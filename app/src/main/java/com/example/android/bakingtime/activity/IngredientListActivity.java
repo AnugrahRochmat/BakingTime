@@ -1,9 +1,11 @@
-package com.example.android.bakingtime;
+package com.example.android.bakingtime.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.android.bakingtime.fragment.IngredientListFragment;
+import com.example.android.bakingtime.R;
 import com.example.android.bakingtime.model.Ingredient;
 import com.example.android.bakingtime.model.Recipe;
 

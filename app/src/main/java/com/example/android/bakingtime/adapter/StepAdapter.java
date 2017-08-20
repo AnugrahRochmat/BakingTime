@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.bakingtime.R;
-import com.example.android.bakingtime.StepDetailActivity;
+import com.example.android.bakingtime.activity.StepDetailActivity;
 import com.example.android.bakingtime.model.SelectedPosition;
 import com.example.android.bakingtime.model.Step;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;

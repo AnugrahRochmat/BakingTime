@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.bakingtime.R;
-import com.example.android.bakingtime.RecipeStepsActivity;
+import com.example.android.bakingtime.activity.RecipeStepsActivity;
 import com.example.android.bakingtime.model.Recipe;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;

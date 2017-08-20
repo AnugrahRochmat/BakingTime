@@ -1,4 +1,4 @@
-package com.example.android.bakingtime;
+package com.example.android.bakingtime.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.android.bakingtime.R;
 import com.example.android.bakingtime.adapter.RecipeAdapter;
 import com.example.android.bakingtime.model.Recipe;
 import com.example.android.bakingtime.rest.ApiClient;
