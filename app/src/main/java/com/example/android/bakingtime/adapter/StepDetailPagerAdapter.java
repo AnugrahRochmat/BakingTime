@@ -43,4 +43,13 @@ public class StepDetailPagerAdapter extends FragmentPagerAdapter{
     public int getCount() {
         return steps.size();
     }
+
+    public void setSteps(List<Step> steps){
+        this.steps = steps;
+        notifyDataSetChanged();
+    }
+
+    public List<Step> getSteps(){
+        return steps;
+    }
 }

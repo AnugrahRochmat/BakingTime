@@ -113,6 +113,7 @@ public class StepDetailFragment extends Fragment{
             simpleExoPlayer.seekTo(currentWindow, playBackPosition);
 
             Uri uri = Uri.parse(videoUrl);
+            //Uri uri = Uri.parse(getResources().getString(R.string.video_test));
             MediaSource mediaSource = buildMediaSource(uri);
             simpleExoPlayer.prepare(mediaSource);
         }

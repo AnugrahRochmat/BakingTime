@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import com.example.android.bakingtime.R;
 import com.example.android.bakingtime.adapter.StepAdapter;
 import com.example.android.bakingtime.model.Recipe;
+import com.example.android.bakingtime.model.Step;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Anugrah on 8/16/17.
@@ -18,6 +22,7 @@ import com.example.android.bakingtime.model.Recipe;
 
 public class RecipeStepsFragment extends Fragment implements StepAdapter.OnStepAdapterListener {
 
+    private static final String SAVED_STEPS_KEY = "SAVED_STEPS_KEY";
     private Recipe recipe;
 
     private RecyclerView recipeStepsRecyclerView;
@@ -48,12 +53,36 @@ public class RecipeStepsFragment extends Fragment implements StepAdapter.OnStepA
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recipeStepsRecyclerView.setLayoutManager(layoutManager);
 
-        stepAdapter = new StepAdapter(recipe.getSteps(), this);
+        //stepAdapter = new StepAdapter(recipe.getSteps(), this);
+        stepAdapter = new StepAdapter(new ArrayList<Step>(), this);
         recipeStepsRecyclerView.setAdapter(stepAdapter);
+
+
+         /**
+         * savedInstanceState
+         */
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(SAVED_STEPS_KEY)){
+                List<Step> steps = savedInstanceState.getParcelableArrayList(SAVED_STEPS_KEY);
+                stepAdapter.setStepsData(steps);
+            }
+        } else {
+            stepAdapter.setStepsData(recipe.getSteps());
+        }
+
     }
 
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList<Step> stepsSaved = new ArrayList<>(stepAdapter.getSteps());
+        if (stepsSaved != null && !stepsSaved.isEmpty()) {
+            outState.putParcelableArrayList(SAVED_STEPS_KEY, stepsSaved);
+        }
     }
 
 }

@@ -17,14 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1">
-            <!--<ImageView-->
-                <!--android:id="@+id/step_thumbnail_image"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/step_image_detail_height"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:adjustViewBounds="true"-->
-                <!--android:src="@drawable/brownies"-->
-                <!--android:layout_marginBottom="@dimen/margin_padding_16"/>-->
+
             <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                 android:id="@+id/step_detail_video"
                 android:layout_width="match_parent"

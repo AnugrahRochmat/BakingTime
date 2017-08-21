@@ -26,6 +26,8 @@ import retrofit2.Call;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String SAVED_RECIPES_KEY = "SAVED_RECIPE_KEY";
+
     private ProgressBar progressBar;
     private TextView errorMessage;
 
@@ -59,7 +61,17 @@ public class MainActivity extends AppCompatActivity {
         adapter = new RecipeAdapter(new ArrayList<Recipe>(), getApplicationContext());
         recyclerView.setAdapter(adapter);
 
-        new FetchRecipesTask().execute();
+        /**
+         * savedInstanceState
+         */
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(SAVED_RECIPES_KEY)){
+                List<Recipe> recipes = savedInstanceState.getParcelableArrayList(SAVED_RECIPES_KEY);
+                adapter.setRecipesData(recipes);
+            }
+        } else {
+            new FetchRecipesTask().execute();
+        }
     }
 
     private void showErrorMessage() {
@@ -67,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         errorMessage.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * AsyncTask
+     */
     public class FetchRecipesTask extends AsyncTask<Void, Void, List<Recipe>> {
 
         @Override
@@ -98,6 +113,15 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 showErrorMessage();
             }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList<Recipe> recipesSaved = new ArrayList<>(adapter.getRecipes());
+        if (recipesSaved != null && !recipesSaved.isEmpty()) {
+            outState.putParcelableArrayList(SAVED_RECIPES_KEY, recipesSaved);
         }
     }
 

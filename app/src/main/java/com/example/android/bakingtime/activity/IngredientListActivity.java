@@ -41,38 +41,6 @@ public class IngredientListActivity extends AppCompatActivity {
         }
     }
 
-    //    private RecyclerView recyclerView;
-//    private IngredientAdapter ingredientAdapter;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_ingredient_list);
-//
-//        /**
-//         * getIntent from RecipeStepsActivity
-//         */
-//        Bundle data = getIntent().getExtras();
-//        if ( data != null) {
-//            Recipe recipe = data.getParcelable("recipe");
-//            ingredients = recipe.getIngredients();
-//
-//            setTitle(recipe.getName() + " (Ingredients)");
-//        } else {
-//            finish();
-//        }
-//
-//        recyclerView = (RecyclerView) findViewById(R.id.ingredients_recycler_view);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setHasFixedSize(true);
-//
-//        ingredientAdapter = new IngredientAdapter(new ArrayList<Ingredient>(), getApplicationContext());
-//        recyclerView.setAdapter(ingredientAdapter);
-//
-//        ingredientAdapter.setIngredientsData(ingredients);
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

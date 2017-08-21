@@ -12,6 +12,7 @@ import com.example.android.bakingtime.R;
 import com.example.android.bakingtime.adapter.IngredientAdapter;
 import com.example.android.bakingtime.model.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class IngredientListFragment extends Fragment {
 
+    private static final String INGREDIENTS_SAVED_KEY = "INGREDIENTS_SAVED_KEY";
     private List<Ingredient> ingredients;
 
     private RecyclerView ingredientRecyclerView;
@@ -40,11 +42,34 @@ public class IngredientListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         ingredientRecyclerView.setLayoutManager(layoutManager);
 
-        ingredientAdapter = new IngredientAdapter(ingredients);
+        //ingredientAdapter = new IngredientAdapter(ingredients);
+        ingredientAdapter = new IngredientAdapter(new ArrayList<Ingredient>());
         ingredientRecyclerView.setAdapter(ingredientAdapter);
+
+        /**
+         * savedInstanceState
+         */
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(INGREDIENTS_SAVED_KEY)){
+                List<Ingredient> ingredientsSaved = savedInstanceState.getParcelableArrayList(INGREDIENTS_SAVED_KEY);
+                ingredientAdapter.setIngredientsData(ingredientsSaved);
+            }
+        } else {
+            ingredientAdapter.setIngredientsData(ingredients);
+        }
     }
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList<Ingredient> ingredientsSaved = new ArrayList<>(ingredientAdapter.getIngredients());
+        if (ingredientsSaved != null && !ingredientsSaved.isEmpty()) {
+            outState.putParcelableArrayList(INGREDIENTS_SAVED_KEY, ingredientsSaved);
+        }
+    }
+
 }

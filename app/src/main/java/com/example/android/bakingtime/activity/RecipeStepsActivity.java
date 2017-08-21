@@ -9,16 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.android.bakingtime.fragment.IngredientListFragment;
 import com.example.android.bakingtime.R;
-import com.example.android.bakingtime.fragment.RecipeStepsFragment;
 import com.example.android.bakingtime.adapter.StepDetailPagerAdapter;
+import com.example.android.bakingtime.fragment.IngredientListFragment;
+import com.example.android.bakingtime.fragment.RecipeStepsFragment;
 import com.example.android.bakingtime.model.Recipe;
 import com.example.android.bakingtime.model.SelectedPosition;
+import com.example.android.bakingtime.model.Step;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Anugrah on 8/16/17.
@@ -26,6 +30,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class RecipeStepsActivity extends AppCompatActivity  {
 
+    private static final String SAVED_STEPS_PAGER_KEY = "SAVED_STEPS_PAGER_KEY";
     private Recipe recipe;
 
     private Button ingredientsButton;
@@ -76,20 +81,30 @@ public class RecipeStepsActivity extends AppCompatActivity  {
          */
         if(getResources().getBoolean(R.bool.isTablet)){
             // Tablet is True
-            if (savedInstanceState == null) {
-                /**
-                 * Call ingredient List Fragment
-                 */
-                IngredientListFragment ingredientListFragment = new IngredientListFragment();
-                getFragmentManager().beginTransaction().add(R.id.ingredients_container, ingredientListFragment).commit();
-                ingredientListFragment.setIngredients(recipe.getIngredients());
+            /**
+             * Call ingredient List Fragment
+             */
+            IngredientListFragment ingredientListFragment = new IngredientListFragment();
+            getFragmentManager().beginTransaction().add(R.id.ingredients_container, ingredientListFragment).commit();
+            ingredientListFragment.setIngredients(recipe.getIngredients());
 
-                /**
-                 * Call detail of steps fragment
-                 */
-                viewPager = (ViewPager)findViewById(R.id.view_pager);
-                stepDetailPagerAdapter = new StepDetailPagerAdapter(getSupportFragmentManager(), this, recipe.getSteps());
-                viewPager.setAdapter(stepDetailPagerAdapter);
+            /**
+             * Call detail of steps fragment
+             */
+            viewPager = (ViewPager)findViewById(R.id.view_pager);
+            stepDetailPagerAdapter = new StepDetailPagerAdapter(getSupportFragmentManager(), this, new ArrayList<Step>());
+            viewPager.setAdapter(stepDetailPagerAdapter);
+
+            /**
+             * savedInstanceState
+             */
+            if (savedInstanceState != null) {
+                if (savedInstanceState.containsKey(SAVED_STEPS_PAGER_KEY)){
+                    List<Step> steps = savedInstanceState.getParcelableArrayList(SAVED_STEPS_PAGER_KEY);
+                    stepDetailPagerAdapter.setSteps(steps);
+                }
+            } else {
+                stepDetailPagerAdapter.setSteps(recipe.getSteps());
             }
         } else {
             // Tablet is False
@@ -106,7 +121,6 @@ public class RecipeStepsActivity extends AppCompatActivity  {
                 }
             });
         }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -114,4 +128,12 @@ public class RecipeStepsActivity extends AppCompatActivity  {
         viewPager.setCurrentItem(selectedPosition.getPosition());
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList<Step> stepsPagerSaved = new ArrayList<>(stepDetailPagerAdapter.getSteps());
+        if (stepsPagerSaved != null && !stepsPagerSaved.isEmpty()) {
+            outState.putParcelableArrayList(SAVED_STEPS_PAGER_KEY, stepsPagerSaved);
+        }
+    }
 }
