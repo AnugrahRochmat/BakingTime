@@ -131,9 +131,11 @@ public class RecipeStepsActivity extends AppCompatActivity  {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        ArrayList<Step> stepsPagerSaved = new ArrayList<>(stepDetailPagerAdapter.getSteps());
-        if (stepsPagerSaved != null && !stepsPagerSaved.isEmpty()) {
-            outState.putParcelableArrayList(SAVED_STEPS_PAGER_KEY, stepsPagerSaved);
+        if(getResources().getBoolean(R.bool.isTablet)) {
+            ArrayList<Step> stepsPagerSaved = new ArrayList<>(stepDetailPagerAdapter.getSteps());
+            if (stepsPagerSaved != null && !stepsPagerSaved.isEmpty()) {
+                outState.putParcelableArrayList(SAVED_STEPS_PAGER_KEY, stepsPagerSaved);
+            }
         }
     }
 }
