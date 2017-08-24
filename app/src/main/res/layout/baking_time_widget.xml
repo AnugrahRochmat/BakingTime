@@ -7,14 +7,15 @@
         android:id="@+id/widget_layout_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
         <TextView
             android:id="@+id/widget_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Widget Header"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/scampi"
+            android:textColor="@color/colorWhite"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold"
             android:paddingStart="@dimen/margin_padding_8"
@@ -26,6 +27,7 @@
     <ListView
         android:id="@+id/widget_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"/>
 
 </LinearLayout>
