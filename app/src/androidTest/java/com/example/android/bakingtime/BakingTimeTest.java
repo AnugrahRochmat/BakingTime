@@ -252,16 +252,6 @@ public class BakingTimeTest {
                         isDisplayed()));
         viewPager.check(matches(isDisplayed()));
 
-        ViewInteraction frameLayout4 = onView(
-                allOf(withId(R.id.step_detail_video),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class),
-                                        0),
-                                0),
-                        isDisplayed()));
-        frameLayout4.check(matches(isDisplayed()));
-
         ViewInteraction linearLayout = onView(
                 allOf(childAtPosition(
                         withParent(withId(R.id.view_pager)),
