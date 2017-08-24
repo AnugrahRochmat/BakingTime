@@ -125,8 +125,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // TODO: Implement SaveInstaceState
-    // TODO: Widget choose recipe for widget (widget show all the ingredients for the recipe that we choose)
-
-    // TODO: UI Binding library
 }

@@ -18,30 +18,50 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.RecipeStepsActivity"
             android:label="@string/recipe_steps"
-            android:theme="@style/AppTheme"
+            android:noHistory="false"
             android:parentActivityName=".activity.MainActivity"
-            android:noHistory="false">
+            android:theme="@style/AppTheme">
         </activity>
-
         <activity
             android:name=".activity.StepDetailActivity"
             android:label="@string/step_detail"
-            android:theme="@style/AppTheme"
+            android:noHistory="false"
             android:parentActivityName=".activity.RecipeStepsActivity"
-            android:noHistory="false">
+            android:theme="@style/AppTheme">
         </activity>
-
         <activity
             android:name=".activity.IngredientListActivity"
             android:label="@string/ingredients"
-            android:theme="@style/AppTheme"
+            android:noHistory="false"
             android:parentActivityName=".activity.RecipeStepsActivity"
-            android:noHistory="false">
+            android:theme="@style/AppTheme">
         </activity>
+
+        <activity android:name=".widget.BakingTimeWidgetConfiguration">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".widget.BakingTimeWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/baking_time_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="true"/>
+
+
     </application>
 
 </manifest>

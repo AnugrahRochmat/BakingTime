@@ -4,6 +4,8 @@
     <dimen name="error_message_text_size">20sp</dimen>
 
     <dimen name="recipe_card_height">200dp</dimen>
+    <dimen name="recipe_card_height_widget_configuration">100dp</dimen>
+    <dimen name="recipe_card_width_widget_configuration">120dp</dimen>
     <dimen name="ingredient_button_height">48dp</dimen>
     <dimen name="step_image_detail_height">360dp</dimen>
 
@@ -21,4 +23,8 @@
 
     <dimen name="rounded_corner_radius">10dp</dimen>
     <dimen name="separated_lines">1dp</dimen>
+
+    <dimen name="widget_height">180dp</dimen>
+    <dimen name="widget_width">250dp</dimen>
+
 </resources>
