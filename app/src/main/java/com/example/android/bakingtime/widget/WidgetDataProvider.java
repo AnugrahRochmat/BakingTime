@@ -2,6 +2,7 @@ package com.example.android.bakingtime.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -67,6 +68,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         Ingredient ingredient = ingredients.get(position);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), android.R.layout.simple_list_item_1);
         remoteViews.setTextViewText(android.R.id.text1, String.format(context.getString(R.string.ingredients_detail), ingredient.getQuantity(), ingredient.getMeasure(), ingredient.getIngredient()));
+        remoteViews.setTextColor(android.R.id.text1, ContextCompat.getColor(context, R.color.scampi));
         return remoteViews;
 //        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), android.R.layout.simple_list_item_1);
 //        remoteViews.setTextViewText(android.R.id.text1, collection.get(position));
