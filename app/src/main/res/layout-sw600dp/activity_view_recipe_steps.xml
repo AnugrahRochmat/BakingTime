@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="7"
@@ -21,13 +20,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <FrameLayout
-                android:id="@+id/recipe_steps_container"
-                android:layout_width="368dp"
-                android:layout_height="0dp"
-                android:paddingLeft="@dimen/margin_padding_16"
-                android:paddingRight="@dimen/margin_padding_16" />
-
+                <FrameLayout
+                    android:id="@+id/recipe_steps_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/margin_padding_16"
+                    android:paddingRight="@dimen/margin_padding_16"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
