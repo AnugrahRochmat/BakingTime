@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -72,9 +74,13 @@ public class RecipeStepsActivity extends AppCompatActivity  {
         /**
          * Call Steps Fragment
          */
-        RecipeStepsFragment recipeStepsFragment = new RecipeStepsFragment();
-        getFragmentManager().beginTransaction().add(R.id.recipe_steps_container, recipeStepsFragment).commit();
-        recipeStepsFragment.setRecipe(recipe);
+        if (savedInstanceState == null) {
+            RecipeStepsFragment recipeStepsFragment = RecipeStepsFragment.newInstance(recipe);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.recipe_steps_container, recipeStepsFragment);
+            ft.commit();
+        }
 
         /**
          * Check wether screen device on tablet or phone
