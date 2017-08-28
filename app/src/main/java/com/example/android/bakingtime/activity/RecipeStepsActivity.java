@@ -69,7 +69,7 @@ public class RecipeStepsActivity extends AppCompatActivity  {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);;
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("recipe_name", recipe.getName());
-        editor.commit();
+        editor.apply();
 
         /**
          * Call Steps Fragment

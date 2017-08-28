@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 .oval(false)
                 .build();
 
-        if (recipe.getImage() == null || recipe.getImage().isEmpty()) {
+        if (TextUtils.isEmpty(recipe.getImage())) {
             Picasso.with(context).load(R.drawable.placeholder).fit().transform(transformation).into(holder.recipeImage);
         } else {
             Picasso.with(context).load(recipe.getImage()).placeholder(R.drawable.placeholder).fit().transform(transformation).into(holder.recipeImage);

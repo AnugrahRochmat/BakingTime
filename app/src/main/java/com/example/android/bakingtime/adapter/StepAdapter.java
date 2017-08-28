@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
                 .oval(false)
                 .build();
 
-        if (step.getThumbnailURL() == null || step.getThumbnailURL().isEmpty() || !isImageExtension(step.getThumbnailURL())) {
+        if (TextUtils.isEmpty(step.getThumbnailURL()) || !isImageExtension(step.getThumbnailURL())) {
             Picasso.with(context).load(R.drawable.placeholder).fit().transform(transformation).into(holder.stepImage);
         } else {
             Picasso.with(context).load(step.getThumbnailURL()).placeholder(R.drawable.placeholder).fit().transform(transformation).into(holder.stepImage);
